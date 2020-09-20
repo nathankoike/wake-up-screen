@@ -424,7 +424,7 @@ function setColor(){
 
   // check to see if the color needs to be changes
   if (Color != newColor){
-    // console.log("redrawing");
+    console.log("redrawing");
 
     // change the global color
     Color = newColor;
@@ -463,7 +463,7 @@ function hourInit(){
         "mouseup",
         () => {
           Target = paragraph.innerHTML + ':' + Target.split(':')[1];
-          // console.log(Target);
+          console.log("Set wakeup time to", Target);
         }
       );
       hours.appendChild(paragraph);
@@ -499,7 +499,7 @@ function minInit(){
         "mouseup",
         () => {
           Target = Target.split(':')[0] + ':' + paragraph.innerHTML;
-          // console.log(Target);
+          console.log("Set wakeup time to", Target);
         }
       );
 
@@ -521,7 +521,7 @@ function minInit(){
         "mouseup",
         () => {
           Target = Target.split(':')[0] + ':' + paragraph.innerHTML;
-          // console.log(Target);
+          console.log("Set wakeup time to", Target);
         }
       );
 
@@ -552,7 +552,7 @@ function zoneInit(){
         "mouseup",
         () => {
           Timezone = paragraph.innerHTML;
-          // console.log(Timezone);
+          console.log("Set timezone to", Timezone);
         }
       );
       zones.appendChild(paragraph);
