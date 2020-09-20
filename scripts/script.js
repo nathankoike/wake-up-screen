@@ -366,10 +366,10 @@ Menu.style.display = "none";
 document.body.appendChild(Menu);
 
 // this is the target timezone ans can be overwritten by the user in the future
-let Timezone = 'America/New_York';
+let Timezone = 'Pacific/Honolulu';
 
 // this is the target time and can be overwritten by the user in the future
-let Target = "06:23";
+let Target = "08:00";
 
 // color the background color
 function changeColor() {
