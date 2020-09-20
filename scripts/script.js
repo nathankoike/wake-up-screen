@@ -12,10 +12,14 @@ cvs.style.marginRight = "1vw";
 cvs.style.marginTop = "1vh";
 cvs.style.marginBottom = "2vh";
 
-let color = "red";
+let color = "#555555";
 
 ctx.beginPath;
 ctx.fillStyle = color;
 ctx.rect(0, 0, cvs.width, cvs.height)
 ctx.fill();
 ctx.closePath();
+
+
+let usaTime = new Date().toLocaleString("en-US", {timeZone: "America/New_York"});
+console.log('USA time: '+ (new Date(usaTime)).toISOString())
