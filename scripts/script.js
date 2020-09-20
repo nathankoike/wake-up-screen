@@ -100,8 +100,16 @@ function setColor(){
   }
 }
 
+function loop(){
+  console.log("looping");
+  setTimeout(
+    ()=>{
+      setColor();
+      loop()},
+    30000);
+}
+
 init();
 changeColor();
-
-// while (true)
-  setColor();
+setColor();
+loop();
