@@ -10,7 +10,7 @@ let Color = "#555555";
 let Timezone = 'America/New_York';
 
 // this is the target time and can be overwritten by the user in the future
-let Target = "03:18";
+let Target = "08:05";
 
 // initialize the canvas
 function init() {
@@ -27,14 +27,13 @@ function init() {
 
 // color the canvas
 function changeColor() {
-  // clear the current color
-  Ctx.clearRect(0, 0, Cvs.width, Cvs.height)
-
   // allow for drawing
   Ctx.beginPath;
 
   // set the fill color
   Ctx.fillStyle = Color;
+
+  console.log(Color);
 
   // select the whole canvas
   Ctx.rect(0, 0, Cvs.width, Cvs.height)
@@ -47,21 +46,43 @@ function changeColor() {
 }
 
 // get the color that the screen should be
-function getColor(currentTime){
-  console.log("getting color");
+function getColor(time){
+  // get the time difference
+  let hDiff = Number(Target.split(':')[0]) - Number(time.split(':')[0]);
+  let mDiff = Number(Target.split(':')[1]) - Number(time.split(':')[1]);
 
-  // check to see if the time is equal to the target
-  if (currentTime == Target)
-    return "#FF8800";
+  // force the differences to be positive
+  hDiff < 0? hDiff = 24 + hDiff: hDiff = hDiff;
+  mDiff < 1? mDiff = 60 + mDiff: mDiff = mDiff;
 
-  return "black";
+  console.log("h:", hDiff);
+  console.log("m:", mDiff);
+
+  // get the total difference in minutes
+  let tDiff = 60 * hDiff + mDiff
+
+  console.log(tDiff)
+
+  // check to see if tDiff is 8 hours or less
+  if (tDiff <= 480){
+    // if the total difference is larger than 255, just max red and move on
+    let red = (480 - tDiff > 255? 255: tDiff).toString(16);
+    let green = (480 - tDiff > 255? 480 - 255 - tDiff: 0).toString(16);
+
+    // make sure the hex strings are properly formatted
+    if (red.length < 2) red = '0' + red;
+    if (green.length < 2) green = '0' + green;
+
+    return "#" + red + green + "00";
+  }
+
+  // keep the color the same if there are more than 8 hours until wake-up time
+  return Color;
 }
 
 // check to see if we need to change the color of the screen, then change it if
 // necessary
 function setColor(){
-  console.log("setting color");
-
   // get the current date and time information
   let present = new Date(Date.now());
 
@@ -75,6 +96,8 @@ function setColor(){
 
   // check to see if the color needs to be changes
   if (Color != newColor){
+    console.log("redrawing");
+
     // change the global color
     Color = newColor;
 
