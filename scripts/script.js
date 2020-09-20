@@ -349,6 +349,9 @@ const Timezones = [
   "Pacific/Wallis"
 ];
 
+// the length of the wait time (seconds * millisecond_conversion)
+const LoopTimer = 10 * 1000;
+
 // this is the color of the canvas. it is a placeholder color and will be
 // overwritten by the rest of the code
 let Color = "#555555";
@@ -437,7 +440,7 @@ function loop(){
     ()=>{
       setColor();
       loop()},
-    30000);
+    LoopTimer);
 }
 
 // show the settings menu
