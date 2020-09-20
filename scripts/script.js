@@ -450,11 +450,112 @@ function showSettings(){
     Menu.style.display = "block";
 }
 
-// initialize the menu
-function menuInit(){
-  // append all the timezones to a paragraph tag
+// initialize the hour selection in the menu
+function hourInit(){
+  // create a div to hold all the hours and add it to the menu
+  let hours = document.createElement("DIV");
+  hours.style.position = "relative";
+  hours.style.float = "left";
+
+  Menu.appendChild(hours);
+
+  // create a header for the hour selection
+  let hLabel = document.createElement("h2");
+  hLabel.innerHTML = "Hour Selection";
+  hours.appendChild(hLabel)
+
+  // create and add all of the possible hours
+  for (let i = 0; i < 24; i++) {
+      let paragraph = document.createElement("h5");
+      paragraph.innerHTML = i.toString();
+      // click on a timezone to set it as your desired timezone
+      paragraph.addEventListener(
+        "mouseup",
+        () => {
+          Target = paragraph.innerHTML + ':' + Target.split(':')[1];
+          console.log(Target);
+        }
+      );
+      hours.appendChild(paragraph);
+  }
+}
+
+// initialize the minute selection in the menu
+function minInit(){
+  // create a div to hold all the hours and add it to the menu
+  let mins = document.createElement("DIV");
+  mins.style.position = "relative";
+  mins.style.float = "left";
+
+  Menu.appendChild(mins);
+
+  // create a header for the hour selection
+  let mLabel = document.createElement("h2");
+  mLabel.innerHTML = "Minute Selection";
+  mins.appendChild(mLabel)
+
+  // hold the lower 30 minutes
+  let l30 = document.createElement("DIV");
+  l30.style.position = "absolute";
+  l30.style.float = "left";
+  mins.appendChild(l30);
+
+  // create and the lower 30 mins
+  for (let i = 0; i < 30; i++) {
+      let paragraph = document.createElement("h5");
+      paragraph.innerHTML = i.toString();
+      // click on a timezone to set it as your desired timezone
+      paragraph.addEventListener(
+        "mouseup",
+        () => {
+          Target = Target.split(':')[0] + ':' + paragraph.innerHTML;
+          console.log(Target);
+        }
+      );
+
+      l30.appendChild(paragraph);
+  }
+
+  // hold the lower 30 minutes
+  let h30 = document.createElement("DIV");
+  h30.style.position = "relative";
+  h30.style.float = "right";
+  mins.appendChild(h30);
+
+  // create and the lower 30 mins
+  for (let i = 30; i < 60; i++) {
+      let paragraph = document.createElement("h5");
+      paragraph.innerHTML = i.toString();
+      // click on a timezone to set it as your desired timezone
+      paragraph.addEventListener(
+        "mouseup",
+        () => {
+          Target = Target.split(':')[0] + ':' + paragraph.innerHTML;
+          console.log(Target);
+        }
+      );
+
+      h30.appendChild(paragraph);
+  }
+}
+
+// initialize the timezone selection in the menu
+function zoneInit(){
+  // create a div to hold all the hours and add it to the menu
+  let zones = document.createElement("DIV");
+  zones.style.position = "relative";
+  zones.style.float = "right";
+
+  Menu.appendChild(zones);
+
+  // create a header for the hour selection
+  let zLabel = document.createElement("h2");
+  zLabel.innerHTML = "Timezone Selection";
+  zones.appendChild(zLabel)
+
+  // create and append all the hours to the menu
   for (let item in Timezones) {
-      let paragraph = document.createElement("p");
+      let paragraph = document.createElement("h5");
       paragraph.innerHTML = Timezones[item];
       // click on a timezone to set it as your desired timezone
       paragraph.addEventListener(
@@ -464,8 +565,15 @@ function menuInit(){
           console.log(Timezone);
         }
       );
-      Menu.appendChild(paragraph);
+      zones.appendChild(paragraph);
   }
+}
+
+// initialize the menu
+function menuInit(){
+  hourInit();
+  minInit();
+  zoneInit();
 }
 
 // initialize the webapp
