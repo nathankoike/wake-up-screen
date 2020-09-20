@@ -420,11 +420,11 @@ function setColor(){
   // get the new color of the screen
   let newColor = getColor(currentTime)
 
-  console.log(newColor);
+  // console.log(newColor);
 
   // check to see if the color needs to be changes
   if (Color != newColor){
-    console.log("redrawing");
+    // console.log("redrawing");
 
     // change the global color
     Color = newColor;
@@ -435,7 +435,7 @@ function setColor(){
 
 // run the setColor function once every 30 seconds
 function loop(){
-  console.log("looping");
+  // console.log("looping");
   setTimeout(
     ()=>{
       setColor();
@@ -473,7 +473,7 @@ function hourInit(){
         "mouseup",
         () => {
           Target = paragraph.innerHTML + ':' + Target.split(':')[1];
-          console.log(Target);
+          // console.log(Target);
         }
       );
       hours.appendChild(paragraph);
@@ -509,7 +509,7 @@ function minInit(){
         "mouseup",
         () => {
           Target = Target.split(':')[0] + ':' + paragraph.innerHTML;
-          console.log(Target);
+          // console.log(Target);
         }
       );
 
@@ -531,7 +531,7 @@ function minInit(){
         "mouseup",
         () => {
           Target = Target.split(':')[0] + ':' + paragraph.innerHTML;
-          console.log(Target);
+          // console.log(Target);
         }
       );
 
@@ -562,7 +562,7 @@ function zoneInit(){
         "mouseup",
         () => {
           Timezone = paragraph.innerHTML;
-          console.log(Timezone);
+          // console.log(Timezone);
         }
       );
       zones.appendChild(paragraph);
