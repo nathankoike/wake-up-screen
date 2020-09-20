@@ -10,7 +10,7 @@ let Color = "#555555";
 let Timezone = 'America/New_York';
 
 // this is the target time and can be overwritten by the user in the future
-let Target = "11:23";
+let Target = "04:23";
 
 // initialize the canvas
 function init() {
@@ -61,21 +61,12 @@ function getColor(time){
   // check to see if tDiff is 8 hours or less
   if (tDiff <= 480){
     // if the total difference is larger than 255, just max red and move on
-    let red = (480 - tDiff >= 255? 255: tDiff - 255)
+    let red = (480 - tDiff >= 255? 255: 480 - tDiff)
     let green = (480 - tDiff >= 255? 480 - 255 - tDiff: 0).toString(16);
-
-    console.log(red);
-    console.log(green);
 
     // make sure the hex strings are properly formatted
     red < 10? red = '0' + red.toString(16): red = red.toString(16)
     green < 10? green = '0' + green.toString(16): green = green.toString(16)
-
-    console.log(tDiff);
-    console.log(red);
-    console.log(green);
-
-    console.log("#" + red + green + "00");
 
     return "#" + red + green + "00";
   }
