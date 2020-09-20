@@ -100,8 +100,17 @@ function setColor(){
   }
 }
 
+// run the setColor function once every 30 seconds
+function loop(){
+  console.log("looping");
+  setTimeout(
+    ()=>{
+      setColor();
+      loop()},
+    30000);
+}
+
 init();
 changeColor();
-
-// while (true)
-  setColor();
+setColor();
+loop();
