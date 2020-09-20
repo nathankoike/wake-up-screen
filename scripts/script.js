@@ -433,16 +433,6 @@ function setColor(){
   }
 }
 
-// run the setColor function once every 30 seconds
-function loop(){
-  // console.log("looping");
-  setTimeout(
-    ()=>{
-      setColor();
-      loop()},
-    LoopTimer);
-}
-
 // show the settings menu
 function showSettings(){
   Menu.style.display == "block"?
@@ -581,6 +571,16 @@ function init() {
   // add an event handler to change user settings
   document.addEventListener("mouseup", showSettings);
   menuInit();
+}
+
+// run the setColor function once every 30 seconds
+function loop(){
+  console.log("refreshing");
+  setTimeout(
+    ()=>{
+      setColor();
+      loop()},
+    LoopTimer);
 }
 
 init();
