@@ -100,7 +100,10 @@ function setColor(){
   }
 }
 
+<<<<<<< HEAD
 // run the setColor function once every 30 seconds
+=======
+>>>>>>> 71eb49beba032bd38082b852a47a31fba74bfa2a
 function loop(){
   console.log("looping");
   setTimeout(
