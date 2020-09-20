@@ -1,7 +1,3 @@
-// get control of the canvas, its container, and context
-let Cvs = document.getElementById('scrn');
-let Ctx = Cvs.getContext("2d");
-
 // all the timezones
 const Timezones = [
   "Africa/Abidjan",
@@ -360,19 +356,11 @@ let Color = "#555555";
 // create the menu div and add it to the canvas
 let Menu = document.createElement("DIV");
 
-// append all the timezones to a paragraph tag
-for (let item in Timezones) {
-    var paragraph = document.createElement("p");
-    paragraph.setAttribute("style", "border: 1px solid black;");
-    paragraph.innerHTML = Timezones[item];
-    Menu.appendChild(paragraph);
-}
-
 // make the menu invisible
 Menu.style.display = "none";
 
 // add the menu to the canvas
-Cvs.appendChild(Menu);
+document.body.appendChild(Menu);
 
 // this is the target timezone ans can be overwritten by the user in the future
 let Timezone = 'America/New_York';
@@ -380,24 +368,9 @@ let Timezone = 'America/New_York';
 // this is the target time and can be overwritten by the user in the future
 let Target = "06:23";
 
-// color the canvas
+// color the background color
 function changeColor() {
-  // allow for drawing
-  Ctx.beginPath;
-
-  // set the fill color
-  Ctx.fillStyle = Color;
-
-  // console.log(Color);
-
-  // select the whole canvas
-  Ctx.rect(0, 0, Cvs.width, Cvs.height)
-
-  // fill the canvas with the selected color
-  Ctx.fill();
-
-  // finish drawing
-  Ctx.closePath();
+  document.body.style.background = Color;
 }
 
 // get the color that the screen should be
@@ -474,27 +447,28 @@ function showSettings(){
     Menu.style.display = "block";
 }
 
-// initialize the canvas
-function cvsInit(){
-  // set the height and width of the canvas to take up most of the screen
-  Cvs.height = Math.ceil(window.screen.availHeight * 1); // 100% of the height
-  Cvs.width = Math.ceil(window.screen.availWidth * .99); // 98% of the width
-
-  // mostly center the canvas on the screen
-  Cvs.style.marginLeft = "0";
-  Cvs.style.marginRight = "1vw";
-  Cvs.style.marginTop = "1vh";
-  Cvs.style.marginBottom = "2vh";
-
-  // add an event handler to change user settings
-  Cvs.addEventListener("mouseup", showSettings);
+// initialize the menu
+function menuInit(){
+  // append all the timezones to a paragraph tag
+  for (let item in Timezones) {
+      let paragraph = document.createElement("p");
+      paragraph.innerHTML = Timezones[item];
+      // click on a timezone to set it as your desired timezone
+      paragraph.addEventListener(
+        "mouseup",
+        () => {
+          Timezone = paragraph.innerHTML;
+          console.log(Timezone);
+        }
+      );
+      Menu.appendChild(paragraph);
+  }
 }
-
-function menuInit(){}
 
 // initialize the webapp
 function init() {
-  cvsInit();
+  // add an event handler to change user settings
+  document.addEventListener("mouseup", showSettings);
   menuInit();
 }
 
