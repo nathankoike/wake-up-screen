@@ -354,7 +354,7 @@ const LoopTimer = 10 * 1000;
 
 // this is the color of the canvas. it is a placeholder color and will be
 // overwritten by the rest of the code
-let Color = "#555555";
+let Color = "black";
 
 // create the menu div and add it to the canvas
 let Menu = document.createElement("DIV");
