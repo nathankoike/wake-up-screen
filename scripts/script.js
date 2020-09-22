@@ -393,7 +393,10 @@ function getColor(time){
 
   // subtract from the hour if the minute difference is greater than 0
   // this gets us the actual differences
-  if (mDiff != 0) hDiff -= 1;
+  // only do this if the selected minute is less a higher value than the target
+  // minute
+  if (Number(Target.split(':')[1]) <= Number(time.split(':')[1]))
+    if (mDiff != 0) hDiff -= 1;
 
   // force the differences to be positive
   hDiff < 0? hDiff = 24 + hDiff: hDiff = hDiff;
