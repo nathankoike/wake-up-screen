@@ -535,7 +535,7 @@ function minInit(){
           minute = minute.length < 2? '0' + minute: minute;
 
           // set the target minute
-          Target = Target.split(':')[0] + ':' + paragraph.innerHTML;
+          Target = Target.split(':')[0] + ':' + minute;
 
           // debugging code
           console.log("Set wakeup time to", Target);
@@ -562,8 +562,15 @@ function minInit(){
       paragraph.addEventListener(
         "mouseup",
         () => {
-          Target = Target.split(':')[0] + ':' + paragraph.innerHTML;
+          // set the target minute
+          let minute = paragraph.innerHTML;
+          Target = Target.split(':')[0] + ':' + minute;
+
+          // debugging code
           console.log("Set wakeup time to", Target);
+
+          setColor(); // immediately change the color of the screen
+          showSettings(); // keep the menu open
         }
       );
 
