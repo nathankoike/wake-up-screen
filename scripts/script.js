@@ -1,3 +1,8 @@
+// Auth: Nate Koike
+// Desc: change the background and color of an HTML page to be brighter
+//       depending on the time
+// Date: 19 September 2020
+
 // all the timezones
 const Timezones = [
   "Africa/Abidjan",
@@ -382,18 +387,24 @@ function getColor(time){
   let hDiff = Number(Target.split(':')[0]) - Number(time.split(':')[0]);
   let mDiff = Number(Target.split(':')[1]) - Number(time.split(':')[1]);
 
+  // subtract from the hour if the minute difference is greater than 0
+  // this gets us the actual differences
+  if (mDiff != 0) hDiff -= 1;
+
   // force the differences to be positive
   hDiff < 0? hDiff = 24 + hDiff: hDiff = hDiff;
-  mDiff < 1? mDiff = 60 + mDiff: mDiff = mDiff;
+  mDiff < 0? mDiff = 60 + mDiff: mDiff = mDiff;
 
   // get the total difference in minutes
   let tDiff = 60 * hDiff + mDiff
+
+  console.log("H:", hDiff, "M:", mDiff, "T:", tDiff);
 
   // check to see if tDiff is 8 hours or less
   if (tDiff <= 480){
     // if the total difference is larger than 255, just max red and move on
     let red = (480 - tDiff >= 255? 255: 480 - tDiff)
-    let green = (480 - tDiff >= 255? 480 - 255 - tDiff: 0).toString(16);
+    let green = (480 - tDiff >= 255? 480 - 255 - tDiff: 0);
 
     // make sure the hex strings are properly formatted
     red < 10? red = '0' + red.toString(16): red = red.toString(16)
