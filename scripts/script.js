@@ -357,6 +357,10 @@ const Timezones = [
 // the length of the wait time (seconds * millisecond_conversion)
 const LoopTimer = 10 * 1000;
 
+// this is the time in minutes that it takes the screen to fade from black to
+// a brighter color
+const Fade = 480;
+
 // this is the color of the canvas. it is a placeholder color and will be
 // overwritten by the rest of the code
 let Color = "black";
@@ -398,19 +402,26 @@ function getColor(time){
   // get the total difference in minutes
   let tDiff = 60 * hDiff + mDiff
 
-  console.log("H:", hDiff, "M:", mDiff, "T:", tDiff);
+  // // debugging code
+  // console.log("H:", hDiff, "M:", mDiff, "T:", tDiff);
 
   // check to see if tDiff is 8 hours or less
-  if (tDiff <= 480){
+  if (tDiff <= Fade){
     // if the total difference is larger than 255, just max red and move on
-    let red = (480 - tDiff >= 255? 255: 480 - tDiff)
-    let green = (480 - tDiff >= 255? 480 - 255 - tDiff: 0);
+    let red = (Fade - tDiff >= 255? 255: Fade - tDiff);
+    let green = (Fade - tDiff >= 255? Fade - 255 - tDiff: 0);
+    let blue = Math.floor((Fade - red - green) / 255);
+
+    // check the value of blue
+    if (blue > 255) blue = 255;
+    if (blue < 0) blue = 0;
 
     // make sure the hex strings are properly formatted
-    red < 10? red = '0' + red.toString(16): red = red.toString(16)
-    green < 10? green = '0' + green.toString(16): green = green.toString(16)
+    red < 10? red = '0' + red.toString(16): red = red.toString(16);
+    green < 10? green = '0' + green.toString(16): green = green.toString(16);
+    blue < 10? blue = '0' + blue.toString(16): blue = blue.toString(16)
 
-    return "#" + red + green + "00";
+    return "#" + red + green + blue;
   }
 
   // keep the color the same if there are more than 8 hours until wake-up time
@@ -473,8 +484,18 @@ function hourInit(){
       paragraph.addEventListener(
         "mouseup",
         () => {
-          Target = paragraph.innerHTML + ':' + Target.split(':')[1];
+          // format the hour correctly
+          let hour = paragraph.innerHTML;
+          hour = hour.length < 2? '0' + hour: hour;
+
+          // set the target hour
+          Target = hour + ':' + Target.split(':')[1];
+
+          // debugging code
           console.log("Set wakeup time to", Target);
+
+          setColor(); // immediately change the color of the screen
+          showSettings(); // keep the menu open
         }
       );
       hours.appendChild(paragraph);
@@ -509,8 +530,18 @@ function minInit(){
       paragraph.addEventListener(
         "mouseup",
         () => {
+          // format the hour correctly
+          let minute = paragraph.innerHTML;
+          minute = minute.length < 2? '0' + minute: minute;
+
+          // set the target minute
           Target = Target.split(':')[0] + ':' + paragraph.innerHTML;
+
+          // debugging code
           console.log("Set wakeup time to", Target);
+
+          setColor(); // immediately change the color of the screen
+          showSettings(); // keep the menu open
         }
       );
 
@@ -564,6 +595,8 @@ function zoneInit(){
         () => {
           Timezone = paragraph.innerHTML;
           console.log("Set timezone to", Timezone);
+          setColor(); // immediately change the color of the screen
+          showSettings(); // keep the menu open
         }
       );
       zones.appendChild(paragraph);
